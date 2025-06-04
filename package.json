@@ -1,0 +1,21 @@
+{
+  "name": "inversiones-agricolas",
+  "version": "1.0.0",
+  "description": "Aplicación de inversiones agrícolas con Telegram",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-telegram-bot-api": "^0.66.0",
+    "sqlite3": "^5.1.7",
+    "dotenv": "^16.4.5",
+    "axios": "^1.7.2",
+    "node-cron": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "license": "MIT"
+}

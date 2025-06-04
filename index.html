@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inversiones Agrícolas</title>
+    <style>
+        :root {
+            --primary-color: #2E7D32;
+            --secondary-color: #66BB6A;
+            --accent-color: #FFB300;
+            --dark-color: #1B5E20;
+            --light-color: #E8F5E9;
+            --text-color: #212121;
+            --light-text: #FFFFFF;
+            --error-color: #D32F2F;
+            --success-color: #388E3C;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #F5F5F5;
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 15px;
+            position: relative;
+            margin: 0 auto;
+            overflow-x: hidden;
+        }
+        
+        .tabs-container {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 12px 15px;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        header h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            background-color: var(--light-color);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .avatar {
+            font-size: 36px;
+            margin-right: 12px;
+        }
+        
+        .user-details {
+            flex-grow: 1;
+        }
+        
+        .user-details h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .user-details p {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .balance {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .farm-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 8px;
+        }
+        
+        .animals-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .animal-card {
+            background-color: var(--light-color);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .animal-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .animal-card.disabled {
+            background-color: #E0E0E0;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .animal-icon {
+            font-size: 28px;
+            margin: 0 auto 6px;
+        }
+        
+        .animal-name {
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        
+        .animal-count {
+            color: var(--primary-color);
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .animal-info {
+            font-size: 11px;
+            color: #666;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+        
+        .income-card {
+            background-color: var(--light-color);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .income-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+        
+        .income-amount {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+        
+        .income-description {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.1s;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-secondary {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #FFCA28;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 360px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            font-size: 13px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        .form-group small {
+            display: block;
+            margin-top: 4px;
+            color: #666;
+            font-size: 11px;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+        
+        .referral-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .referral-code {
+            background-color: var(--light-color);
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            text-align: center;
+            margin: 12px 0;
+            font-size: 14px;
+            word-break: break-all;
+            border: 1px solid #E0E0E0;
+        }
+        
+        .copy-btn {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            font-weight: 500;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            margin-top: 8px;
+        }
+        
+        .copy-btn:hover {
+            background-color: #FFCA28;
+        }
+        
+        .referral-steps {
+            margin-top: 15px;
+        }
+        
+        .referral-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .step-number {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+        
+        .step-text {
+            flex-grow: 1;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .referral-rewards {
+            margin-top: 15px;
+        }
+        
+        .reward-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #F0F0F0;
+            font-size: 13px;
+        }
+        
+        .reward-achieved {
+            color: var(--success-color);
+            font-weight: 500;
+        }
+        
+        .tabs {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #E0E0E0;
+            overflow-x: hidden;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 10px 8px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            transition: color 0.3s, border-color 0.3s;
+            text-align: center;
+            white-space: nowrap;
+        }
+        
+        .tab:hover {
+            color: var(--primary-color);
+        }
+        
+        .tab.active {
+            border-bottom: 3px solid var(--primary-color);
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .transaction-item {
+            background-color: white;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        }
+        
+        .transaction-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+        
+        .transaction-type {
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .transaction-amount {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--primary-color);
+        }
+        
+        .transaction-details {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .transaction-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+        
+        .status-pending {
+            background-color: #FFE082;
+            color: #E65100;
+        }
+        
+        .status-approved {
+            background-color: #C8E6C9;
+            color: #2E7D32;
+        }
+        
+        .status-rejected {
+            background-color: #FFCDD2;
+            color: #C62828;
+        }
+        
+        .max-animals {
+            color: var(--error-color);
+            font-size: 13px;
+            margin-top: 12px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100%);
+            background-color: var(--success-color);
+            color: var(--light-text);
+            padding: 12px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+            max-width: 85%;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .notification.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        
+        .error-notification {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100%);
+            background-color: var(--error-color);
+            color: var(--light-text);
+            padding: 12px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+            max-width: 85%;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .error-notification.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        
+        .error-notification .retry-btn {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 180px;
+            margin: 0 auto;
+        }
+        
+        .error-notification .retry-btn:hover {
+            background-color: #FFCA28;
+        }
+        
+        .banned-message {
+            color: var(--error-color);
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .tabs-container {
+                padding: 0;
+            }
+            
+            .tab {
+                padding: 8px 6px;
+                font-size: 13px;
+            }
+            
+            header {
+                padding: 10px 12px;
+            }
+            
+            .user-info {
+                padding: 10px;
+            }
+            
+            .balance {
+                font-size: 16px;
+            }
+            
+            .btn {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+            
+            .modal-content {
+                padding: 15px;
+                max-width: 320px;
+                width: 95%;
+            }
+            
+            .notification, .error-notification {
+                max-width: 80%;
+                padding: 10px 15px;
+                font-size: 12px;
+            }
+            
+            .error-notification .retry-btn {
+                max-width: 160px;
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .animals-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .animal-card {
+                padding: 10px;
+            }
+            
+            .animal-icon {
+                font-size: 24px;
+            }
+            
+            .animal-name {
+                font-size: 13px;
+            }
+            
+            .animal-count {
+                font-size: 14px;
+            }
+            
+            .animal-info {
+                font-size: 10px;
+            }
+            
+            .tab {
+                padding: 6px 4px;
+                font-size: 12px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .container {
+                padding: 8px;
+            }
+            
+            .tab {
+                padding: 5px 3px;
+                font-size: 11px;
+            }
+            
+            .modal-content {
+                max-width: 300px;
+            }
+            
+            .notification, .error-notification {
+                max-width: 75%;
+                padding: 8px 12px;
+                font-size: 11px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .animals-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tab {
+                padding: 4px 2px;
+                font-size: 10px;
+            }
+            
+            .modal-content {
+                max-width: 280px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Inversiones Agrícolas</h1>
+        </header>
+        
+        <div id="banned-message" class="banned-message" style="display: none;">
+            🚫 Tu cuenta está baneada. Contacta al soporte para más información.
+        </div>
+        
+        <div id="main-content" style="display: block;">
+            <div class="user-info">
+                <div class="avatar">🧑‍🌾</div>
+                <div class="user-details">
+                    <h3 id="username">Cargando...</h3>
+                    <p id="user-id">ID: </p>
+                </div>
+                <div class="balance" id="balance">$0.00</div>
+            </div>
+            
+            <div class="income-card">
+                <h3 class="income-title">Ganancias Diarias</h3>
+                <div class="income-amount" id="daily-income">$0.00</div>
+                <p class="income-description">Obtén hasta 7.5% de tus inversiones cada día</p>
+            </div>
+            
+            <div class="tabs-container">
+                <div class="tabs">
+                    <div class="tab active" data-tab="farm">Animales</div>
+                    <div class="tab" data-tab="shop">Tienda</div>
+                    <div class="tab" data-tab="transactions">Transacciones</div>
+                    <div class="tab" data-tab="referrals">Referidos</div>
+                </div>
+            </div>
+            
+            <div class="tab-content active" id="farm-tab">
+                <div class="farm-section">
+                    <h3 class="section-title"><i>🐔</i> Mis Animales</h3>
+                    <div class="animals-grid" id="animals-grid">
+                        <!-- Animal cards will be added here by JavaScript -->
+                    </div>
+                    <p class="max-animals">Límite máximo: 50 de cada tipo de animal</p>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="shop-tab">
+                <div class="farm-section">
+                    <h3 class="section-title"><i>🛒</i> Tienda de Animales</h3>
+                    <div class="animals-grid" id="shop-grid">
+                        <!-- Shop cards will be added here by JavaScript -->
+                    </div>
+                    <p class="max-animals">Límite máximo: 50 de cada tipo de animal</p>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="transactions-tab">
+                <div class="farm-section">
+                    <h3 class="section-title"><i>📊</i> Historial de Transacciones</h3>
+                    <div id="transactions-list">
+                        <!-- Transactions will be added here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="referrals-tab">
+                <div class="referral-section">
+                    <h3 class="section-title"><i>👥</i> Programa de Referidos</h3>
+                    <p>Invita hasta 1000 amigos y gana $0.01 por cada 10 referidos en tus ganancias diarias, más 15% de sus depósitos</p>
+                    
+                    <div class="referral-code" id="referral-code">Cargando...</div>
+                    <button class="copy-btn" id="copy-btn">Copiar enlace</button>
+                    
+                    <div class="referral-steps">
+                        <div class="referral-step">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Comparte tu enlace de referido con amigos</div>
+                        </div>
+                        <div class="referral-step">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Ellos deben registrarse usando tu enlace</div>
+                        </div>
+                        <div class="referral-step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Gana $0.01 por cada 10 referidos en tus ganancias diarias y 15% de sus depósitos</div>
+                        </div>
+                    </div>
+                    
+                    <div class="referral-rewards">
+                        <h4>Recompensas por referidos:</h4>
+                        <div class="reward-item">
+                            <span>10 referidos</span>
+                            <span>$0.01</span>
+                        </div>
+                        <div class="reward-item">
+                            <span>100 referidos</span>
+                            <span>$0.10</span>
+                        </div>
+                        <div class="reward-item">
+                            <span>500 referidos</span>
+                            <span>$0.50</span>
+                        </div>
+                        <div class="reward-item">
+                            <span>1000 referidos</span>
+                            <span>$1.00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="farm-section">
+                    <h3 class="section-title"><i>📊</i> Estadísticas de Referidos</h3>
+                    <p>Total referidos: <strong id="total-referrals">0</strong></p>
+                    <p>Ganancias por referidos: <strong id="referral-earnings">$0.00</strong></p>
+                </div>
+            </div>
+            
+            <!-- Deposit Modal -->
+            <div class="modal" id="deposit-modal">
+                <div class="modal-content">
+                    <span class="close-modal">×</span>
+                    <h3 class="modal-title">Depositar USDT</h3>
+                    <form id="deposit-form">
+                        <div class="form-group">
+                            <label for="deposit-amount">Cantidad (USDT)</label>
+                            <input type="number" id="deposit-amount" class="form-control" min="5" step="0.01" required>
+                            <small>Mínimo: 5 USDT</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="deposit-network">Red</label>
+                            <select id="deposit-network" class="form-control" required>
+                                <option value="BEP20">BEP20 (Binance Smart Chain)</option>
+                                <option value="Polygon">Polygon</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Dirección de Depósito</label>
+                            <p id="deposit-wallet" style="word-break: break-all; font-family: monospace;">
+                                0x51dC2871f6CA8D0A75BCd4c842DDd338189DE963
+                            </p>
+                            <small>Envía el pago a esta wallet en la red seleccionada. Una vez confirmado, se procesará tu depósito.</small>
+                        </div>
+                        <button type="submit" class="btn">Confirmar Depósito</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Withdrawal Modal -->
+            <div class="modal" id="withdraw-modal">
+                <div class="modal-content">
+                    <span class="close-modal">×</span>
+                    <h3 class="modal-title">Retirar USDT</h3>
+                    <form id="withdraw-form">
+                        <div class="form-group">
+                            <label for="withdraw-amount">Cantidad (USDT)</label>
+                            <input type="number" id="withdraw-amount" class="form-control" min="1" step="0.01" required>
+                            <small>Mínimo: 1 USDT</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="withdraw-wallet">Wallet USDT</label>
+                            <input type="text" id="withdraw-wallet" class="form-control" required placeholder="Dirección de tu wallet">
+                        </div>
+                        <div class="form-group">
+                            <label for="withdraw-network">Red</label>
+                            <select id="withdraw-network" class="form-control" required>
+                                <option value="BEP20">BEP20 (Binance Smart Chain)</option>
+                                <option value="Polygon">Polygon</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn">Solicitar Retiro</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Success Notification -->
+            <div class="notification" id="notification"></div>
+            
+            <!-- Error Notification -->
+            <div class="error-notification" id="error-notification">
+                <p id="error-message">Error al cargar datos. Por favor, intenta de nuevo.</p>
+                <button class="retry-btn" id="retry-btn">Reintentar</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Obtener parámetros de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const telegramId = urlParams.get('startapp') || '';
+        console.log('Telegram ID from URL:', telegramId);
+        
+        // Variables globales
+        let userData = null;
+        let transactions = [];
+        const botUsername = 'ChikenFarm_bot';
+        
+        // Elementos del DOM
+        const usernameElement = document.getElementById('username');
+        const userIdElement = document.getElementById('user-id');
+        const balanceElement = document.getElementById('balance');
+        const dailyIncomeElement = document.getElementById('daily-income');
+        const animalsGrid = document.getElementById('animals-grid');
+        const shopGrid = document.getElementById('shop-grid');
+        const referralCodeElement = document.getElementById('referral-code');
+        const copyButton = document.getElementById('copy-btn');
+        const totalReferralsElement = document.getElementById('total-referrals');
+        const referralEarningsElement = document.getElementById('referral-earnings');
+        const depositModal = document.getElementById('deposit-modal');
+        const withdrawModal = document.getElementById('withdraw-modal');
+        const depositForm = document.getElementById('deposit-form');
+        const withdrawForm = document.getElementById('withdraw-form');
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const transactionsList = document.getElementById('transactions-list');
+        const notificationElement = document.getElementById('notification');
+        const errorNotificationElement = document.getElementById('error-notification');
+        const errorMessageElement = document.getElementById('error-message');
+        const retryButton = document.getElementById('retry-btn');
+        
+        // Función para mostrar notificaciones personalizadas
+        function showNotification(message) {
+            notificationElement.textContent = message;
+            notificationElement.classList.add('show');
+            setTimeout(() => {
+                notificationElement.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Función para mostrar notificaciones de error
+        function showErrorNotification(message) {
+            errorMessageElement.textContent = message;
+            errorNotificationElement.classList.add('show');
+            setTimeout(() => {
+                errorNotificationElement.classList.remove('show');
+            }, 5000);
+        }
+        
+        // Función para cargar datos del usuario con timeout
+        async function loadUserData() {
+            if (!telegramId) {
+                showErrorNotification('No se pudo identificar tu usuario. Por favor, accede a través del bot de Telegram.');
+                return;
+            }
+            
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 10000);
+                
+                const response = await fetch(`/api/user/${telegramId}`, {
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+                
+                if (!response.ok) {
+                    throw new Error(`Error ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log('User data received:', data);
+                
+                if (data.error === 'User is banned') {
+                    document.getElementById('banned-message').style.display = 'block';
+                    document.getElementById('main-content').style.display = 'none';
+                    return;
+                }
+                
+                if (data.error) {
+                    showErrorNotification(data.error + '. Por favor, regístrate primero.');
+                    return;
+                }
+                
+                userData = data;
+                updateUI();
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                if (error.name === 'AbortError') {
+                    showErrorNotification('Tiempo de espera agotado al cargar datos. Por favor, intenta de nuevo.');
+                } else {
+                    showErrorNotification('Error al cargar datos del usuario: ' + error.message);
+                }
+            }
+        }
+        
+        // Actualizar la interfaz con los datos del usuario
+        function updateUI() {
+            if (!userData) return;
+            
+            usernameElement.textContent = `${userData.first_name || ''} ${userData.last_name || ''}`.trim() || 'Usuario';
+            userIdElement.textContent = `ID: ${userData.telegram_id}`;
+            balanceElement.textContent = `$${userData.balance.toFixed(2)}`;
+            dailyIncomeElement.textContent = `$${(userData.daily_income + (userData.daily_referral_income || 0)).toFixed(2)}`;
+            
+            animalsGrid.innerHTML = '';
+            shopGrid.innerHTML = '';
+            
+            const animals = [
+                { name: 'Huevos', count: userData.animals.eggs, price: 5, income: 0.215, icon: '🥚', key: 'eggs', duration: 28 },
+                { name: 'Pollos', count: userData.animals.chickens, price: 25, income: 1.3, icon: '🐥', key: 'chickens', duration: 25 },
+                { name: 'Gallinas', count: userData.animals.hens, price: 70, income: 4.27, icon: '🐔', key: 'hens', duration: 22 },
+                { name: 'Gallos', count: userData.animals.roosters, price: 99, income: 7.425, icon: '🐓', key: 'roosters', duration: 20 },
+                { name: 'Pavos', count: userData.animals.turkeys, price: 6, income: 1.0, icon: '🦃', key: 'turkeys', duration: 10 }
+            ];
+            
+            animals.forEach(animal => {
+                const animalCard = document.createElement('div');
+                animalCard.className = 'animal-card';
+                animalCard.innerHTML = `
+                    <div class="animal-icon">${animal.icon}</div>
+                    <div class="animal-name">${animal.name}</div>
+                    <div class="animal-count">${animal.count}</div>
+                    <div class="animal-info">
+                        Precio: $${animal.price.toFixed(2)}<br>
+                        Ganancia diaria: $${animal.income.toFixed(3)}<br>
+                        Duración: ${animal.duration} días
+                    </div>
+                `;
+                animalsGrid.appendChild(animalCard);
+                
+                const shopCard = document.createElement('div');
+                shopCard.className = `animal-card ${userData.balance < animal.price || animal.count >= 50 ? 'disabled' : ''}`;
+                shopCard.innerHTML = `
+                    <div class="animal-icon">${animal.icon}</div>
+                    <div class="animal-name">${animal.name}</div>
+                    <div class="animal-count">$${animal.price.toFixed(2)}</div>
+                    <div class="animal-info">
+                        Ganancia diaria: $${animal.income.toFixed(3)}<br>
+                        Duración: ${animal.duration} días
+                    </div>
+                `;
+                if (userData.balance >= animal.price && animal.count < 50) {
+                    shopCard.addEventListener('click', () => purchaseAnimal(animal.key, 1));
+                }
+                shopGrid.appendChild(shopCard);
+            });
+            
+            const comboCard = document.createElement('div');
+            comboCard.className = `animal-card ${userData.balance < 35 || userData.animals.eggs >= 50 || userData.animals.chickens >= 50 ? 'disabled' : ''}`;
+            comboCard.innerHTML = `
+                <div class="animal-icon">🥚🐥</div>
+                <div class="animal-name">Combo (3 Huevos + 1 Pollo)</div>
+                <div class="animal-count">$35.00</div>
+                <div class="animal-info">
+                    Ganancia diaria: $1.945<br>
+                    Duración: 25 días
+                </div>
+            `;
+            if (userData.balance >= 35 && userData.animals.eggs < 50 && userData.animals.chickens < 50) {
+                comboCard.addEventListener('click', () => purchaseAnimal('combo', 1));
+            }
+            shopGrid.appendChild(comboCard);
+            
+            referralCodeElement.textContent = userData.referral_code || 'No disponible';
+            totalReferralsElement.textContent = userData.referral_count || 0;
+            referralEarningsElement.textContent = `$${(userData.referral_earnings || 0).toFixed(2)}`;
+            
+            const rewardItems = document.querySelectorAll('.reward-item');
+            rewardItems.forEach(item => {
+                const count = parseInt(item.children[0].textContent);
+                if (userData.referral_count >= count) {
+                    item.children[1].classList.add('reward-achieved');
+                }
+            });
+            
+            loadTransactions();
+        }
+        
+        function purchaseAnimal(animal, quantity) {
+            if (!userData) return;
+            
+            const prices = { eggs: 5, chickens: 25, hens: 70, roosters: 99, turkeys: 6, combo: 35 };
+            
+            if (userData.balance < prices[animal]) {
+                showErrorNotification('Saldo insuficiente para comprar este animal');
+                return;
+            }
+            
+            if (animal === 'combo') {
+                if (userData.animals.eggs >= 50 || userData.animals.chickens >= 50) {
+                    showErrorNotification('Has alcanzado el límite máximo para huevos o pollos');
+                    return;
+                }
+            } else if (userData.animals[animal] >= 50) {
+                showErrorNotification(`Has alcanzado el límite máximo de 50 ${animal}`);
+                return;
+            }
+            
+            fetch('/api/purchase', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ telegramId, animal, quantity, isCombo: animal === 'combo' })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification(data.message);
+                    loadUserData();
+                } else {
+                    showErrorNotification(data.error || 'Error al procesar la compra');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showErrorNotification('Error al procesar la compra');
+            });
+        }
+        
+        function loadTransactions() {
+            fetch(`/api/transactions/${telegramId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        transactionsList.innerHTML = `<p>${data.error}</p>`;
+                        return;
+                    }
+                    transactions = data;
+                    renderTransactions();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    transactionsList.innerHTML = '<p>Error al cargar transacciones</p>';
+                });
+        }
+        
+        function renderTransactions() {
+            transactionsList.innerHTML = '';
+            
+            if (transactions.length === 0) {
+                transactionsList.innerHTML = '<p>No hay transacciones registradas.</p>';
+                return;
+            }
+            
+            transactions.forEach(transaction => {
+                const transactionItem = document.createElement('div');
+                transactionItem.className = 'transaction-item';
+                
+                const statusClass = {
+                    'pending': 'status-pending',
+                    'approved': 'status-approved',
+                    'rejected': 'status-rejected'
+                }[transaction.status];
+                
+                const typeText = {
+                    'deposit': 'Depósito',
+                    'withdrawal': 'Retiro',
+                    'purchase': 'Compra'
+                }[transaction.type];
+                
+                transactionItem.innerHTML = `
+                    <div class="transaction-header">
+                        <div class="transaction-type">${typeText}</div>
+                        <div class="transaction-amount">$${transaction.amount.toFixed(2)}</div>
+                    </div>
+                    <div class="transaction-details">
+                        <div>Fecha: ${new Date(transaction.created_at).toLocaleString()}</div>
+                        ${transaction.network ? `<div>Red: ${transaction.network}</div>` : ''}
+                        ${transaction.wallet_address ? `<div>Wallet: ${transaction.wallet_address}</div>` : ''}
+                        <div class="transaction-status ${statusClass}">${transaction.status === 'pending' ? 'Pendiente' : transaction.status === 'approved' ? 'Aprobado' : 'Rechazado'}</div>
+                    </div>
+                `;
+                
+                transactionsList.appendChild(transactionItem);
+            });
+        }
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
+                
+                if (tab.dataset.tab === 'transactions') {
+                    loadTransactions();
+                }
+            });
+        });
+        
+        document.getElementById('farm-tab').insertAdjacentHTML('beforeend', `
+            <div class="farm-section">
+                <button class="btn" id="deposit-btn">Depositar USDT</button>
+                <button class="btn btn-secondary" id="withdraw-btn">Retirar USDT</button>
+            </div>
+        `);
+        
+        document.getElementById('deposit-btn').addEventListener('click', () => {
+            depositModal.style.display = 'flex';
+        });
+        
+        document.getElementById('withdraw-btn').addEventListener('click', () => {
+            if (!userData || userData.balance < 1) {
+                showErrorNotification('Saldo insuficiente para retirar (mínimo 1 USDT)');
+                return;
+            }
+            document.getElementById('withdraw-amount').max = userData.balance.toFixed(2);
+            withdrawModal.style.display = 'flex';
+        });
+        
+        document.querySelectorAll('.close-modal').forEach(closeBtn => {
+            closeBtn.addEventListener('click', () => {
+                depositModal.style.display = 'none';
+                withdrawModal.style.display = 'none';
+            });
+        });
+        
+        window.addEventListener('click', (event) => {
+            if (event.target === depositModal) depositModal.style.display = 'none';
+            if (event.target === withdrawModal) withdrawModal.style.display = 'none';
+        });
+        
+        depositForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const amount = parseFloat(document.getElementById('deposit-amount').value);
+            const network = document.getElementById('deposit-network').value;
+            
+            if (amount < 5) {
+                showErrorNotification('El depósito mínimo es de 5 USDT');
+                return;
+            }
+            
+            fetch('/api/deposit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ telegramId, amount, network })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification('Su solicitud de depósito está siendo procesada');
+                    depositModal.style.display = 'none';
+                    depositForm.reset();
+                    loadUserData();
+                } else {
+                    showErrorNotification(data.error || 'Error al procesar el depósito');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showErrorNotification('Error al procesar el depósito');
+            });
+        });
+        
+        withdrawForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const amount = parseFloat(document.getElementById('withdraw-amount').value);
+            const walletAddress = document.getElementById('withdraw-wallet').value;
+            const network = document.getElementById('withdraw-network').value;
+            
+            if (amount < 1) {
+                showErrorNotification('El retiro mínimo es de 1 USDT');
+                return;
+            }
+            
+            if (!walletAddress) {
+                showErrorNotification('Por favor ingresa tu dirección de wallet');
+                return;
+            }
+            
+            fetch('/api/withdraw', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ telegramId, amount, walletAddress, network })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification('Su solicitud de retiro está siendo procesada');
+                    withdrawModal.style.display = 'none';
+                    withdrawForm.reset();
+                    loadUserData();
+                } else {
+                    showErrorNotification(data.error || 'Error al procesar el retiro');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showErrorNotification('Error al procesar el retiro');
+            });
+        });
+        
+        copyButton.addEventListener('click', () => {
+            if (!userData || !userData.referral_code) {
+                showErrorNotification('Código de referido no disponible');
+                return;
+            }
+            
+            const referralLink = `https://t.me/${botUsername}?start=${userData.referral_code}`;
+            navigator.clipboard.writeText(referralLink)
+                .then(() => {
+                    copyButton.textContent = '¡Copiado!';
+                    setTimeout(() => {
+                        copyButton.textContent = 'Copiar enlace';
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Error al copiar:', err);
+                    showErrorNotification('Error al copiar el enlace');
+                });
+        });
+        
+        retryButton.addEventListener('click', () => {
+            loadUserData();
+        });
+        
+        loadUserData();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93c214fd1c09dd1e',t:'MTc0NjYzNTIxNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93da3e3e4e6cb0ed',t:'MTc0Njg4ODU2NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>
